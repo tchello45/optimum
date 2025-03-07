@@ -1,3 +1,5 @@
+"use client";
+
 import {
   SidebarGroup,
   SidebarMenu,
@@ -19,9 +21,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useDocuments } from "@/contexts/DocumentsProvider";
+import { useRouter } from "next/navigation";
 
 export default function ActionsMenu() {
   const [newDocumentName, setNewDocumentName] = useState("");
+  const { refreshDocuments } = useDocuments();
+  const router = useRouter();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Actions</SidebarGroupLabel>
@@ -50,7 +56,10 @@ export default function ActionsMenu() {
                 <DialogClose asChild>
                   <Button
                     onClick={() => {
-                      createDocument(newDocumentName);
+                      createDocument(newDocumentName).then((data) => {
+                        refreshDocuments();
+                        router.push(`/dashboard/${data?.document_id}`);    
+                      });
                     }}
                     className="cursor-pointer"
                   >

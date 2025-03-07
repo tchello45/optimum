@@ -1,6 +1,6 @@
-"use client";
+"use server";
 
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import { Database } from "@/types/supabase";
 
 async function createDocument(document_name: string) {
@@ -67,47 +67,4 @@ async function getDocument(document_id: string) {
   }
   return data[0] as Database["public"]["Tables"]["documents"]["Row"];
 }
-
-async function deleteDocument(document_id: string) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-  if (!user) {
-    console.error("Error getting user", userError);
-    return;
-  }
-
-  const { error } = await supabase
-    .from("documents")
-    .delete()
-    .eq("document_id", document_id);
-  if (error) {
-    console.error("Error deleting document", error);
-    return;
-  }
-}
-
-async function changeDocumentTitle({document_id, title}: {document_id: string, title: string}) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-  if (!user) {
-    console.error("Error getting user", userError);
-    return;
-  }
-  console.log(document_id, title);
-  const { error } = await supabase
-    .from("documents")
-    .update({ title })
-    .eq("document_id", document_id);
-  if (error) {
-    console.error("Error changing document title", error);
-    return;
-  }
-}
-
-export { createDocument, getDocuments, getDocument, deleteDocument, changeDocumentTitle };
+export { createDocument, getDocuments, getDocument };

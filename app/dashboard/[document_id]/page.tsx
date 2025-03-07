@@ -1,15 +1,17 @@
-export default async function Editor({
+import Editor from "@/components/editor/Tiptap";
+import { getDocument } from "@/utils/supabase/serverFunctions";
+import { redirect } from "next/navigation";
+
+export default async function EditorPage({
   params,
 }: {
   params: Promise<{ document_id: string }>;
 }) {
   const ready_params = await params;
   const document_id = ready_params.document_id;
-  return (
-    <div className="h-full text-center flex flex-col items-center">
-      <p className="text-5xl md:text-7xl font-extrabold text-inherit pb-4 md:pb-0 md:mr-4 ">
-        Editor {document_id}!
-      </p>
-    </div>
-  );
+  const document = await getDocument(document_id);
+  if (!document) {
+    redirect("/dashboard");
+  }
+  return <Editor key={document_id} document_id={document_id} />;
 }

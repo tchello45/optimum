@@ -14,6 +14,16 @@ const links = [
     href: "/dashboard",
     icon: "mdi:home",
   },
+  {
+    name: "AI",
+    href: "/dashboard/ai",
+    icon: "mdi:robot",
+  },
+  {
+    name: "Chat",
+    href: "/dashboard/chat",
+    icon: "mdi:chat",
+  },
 ];
 
 export default function LinksMenu() {
@@ -28,6 +38,7 @@ export default function LinksMenu() {
             <SidebarMenuButton
               isActive={pathname === href}
               onClick={() => router.push(href)}
+              className="cursor-pointer"
             >
               <Icon icon={icon} className="w-6 h-6 mr-2" />
               <span>{name}</span>

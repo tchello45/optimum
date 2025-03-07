@@ -10,6 +10,7 @@ import Logo from "@/components/Logo";
 import UserNav from "./UserNav";
 import ActionsMenu from "./ActionsMenu";
 import LinksMenu from "./LinksMenu";
+import DocumentsMenu from "./DocumentsMenu";
 
 export default function AppSidebar() {
   return (
@@ -20,6 +21,7 @@ export default function AppSidebar() {
       <SidebarContent>
         <LinksMenu />
         <ActionsMenu />
+        <DocumentsMenu />
       </SidebarContent>
       <SidebarFooter>
         <UserNav />
