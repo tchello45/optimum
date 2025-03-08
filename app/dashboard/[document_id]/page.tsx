@@ -1,8 +1,8 @@
-import Editor from "@/components/editor/Tiptap";
 import { getDocument } from "@/utils/supabase/serverFunctions";
 import { redirect } from "next/navigation";
+import EditorPage from "@/components/editor/Editor";
 
-export default async function EditorPage({
+export default async function DashboardPage({
   params,
 }: {
   params: Promise<{ document_id: string }>;
@@ -13,5 +13,6 @@ export default async function EditorPage({
   if (!document) {
     redirect("/dashboard");
   }
-  return <Editor key={document_id} document_id={document_id} />;
+  
+  return <EditorPage document_id={document_id} key={document_id} />;
 }

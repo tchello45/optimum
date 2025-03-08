@@ -1,14 +1,12 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
-import { useEffect } from "react";
+
 import { useUser } from "@/contexts/UserProvider";
 import * as Y from "yjs";
 import CustomBubbleMenu from "./BubbleMenu";
 import { TiptapCollabProvider } from "@hocuspocus/provider";
-/* import "katex/dist/katex.min.css"; */
 import "./styles.scss";
-import { IndexeddbPersistence } from "y-indexeddb";
 
 //TipTap Extensions
 import StarterKit from "@tiptap/starter-kit";
@@ -20,7 +18,6 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 
 //TipTap Pro Extensions
-/* import { Mathematics } from "@tiptap-pro/extension-mathematics"; */
 
 const colors = [
   "#958DF1",
@@ -52,26 +49,12 @@ const getRandomElement = (list: string[]) =>
 const getRandomColor = () => getRandomElement(colors);
 
 export default function Editor({
-  document_id,
+  ydoc,
+  provider,
 }: {
-  document_id: string;
+  ydoc: Y.Doc;
+  provider: TiptapCollabProvider;
 }) {
-  const ydoc = new Y.Doc();
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.indexedDB) {
-      new IndexeddbPersistence(document_id, ydoc);
-    }
-  }, [document_id, ydoc]);
-  const provider = new TiptapCollabProvider({
-    name: document_id,
-    appId: process.env.NEXT_PUBLIC_TIPTAP_APP_ID?.toString() || "error",
-    token: process.env.NEXT_PUBLIC_TIPTAP_TOKEN?.toString, 
-    document: ydoc,
-    onSynced() {
-      console.log("Synced");
-    },
-  });
-
   const { user } = useUser();
   const collab_user = {
     name: user?.user_metadata.full_name,
@@ -93,7 +76,6 @@ export default function Editor({
       provider,
       user: collab_user,
     }),
-    /* Mathematics, */
     TaskList,
     TaskItem.configure({
       nested: true,
@@ -108,8 +90,8 @@ export default function Editor({
       },
     },
     immediatelyRender: false,
-    onCreate: ({ editor }) => {
-      editor.commands.focus();
+    onCreate({ editor }) {
+      editor.commands.focus(0);
     },
   });
 

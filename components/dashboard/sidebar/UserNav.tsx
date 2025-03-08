@@ -17,10 +17,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/contexts/UserProvider";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export default function UserNav() {;
   const { user } = useUser();
   const signOut = useSignOut();
+  const { isMobile } = useSidebar()
   if (!user) {
     return null;
   }
@@ -47,7 +49,7 @@ export default function UserNav() {;
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side="right"
+            side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
