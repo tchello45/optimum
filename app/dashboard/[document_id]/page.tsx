@@ -1,6 +1,7 @@
 import { getDocument } from "@/utils/supabase/serverFunctions";
 import { redirect } from "next/navigation";
 import EditorPage from "@/components/editor/Editor";
+import DocumentNav from "@/components/dashboard/navbars/DocumentsNavbar";
 
 export default async function DashboardPage({
   params,
@@ -13,6 +14,11 @@ export default async function DashboardPage({
   if (!document) {
     redirect("/dashboard");
   }
-  
-  return <EditorPage document_id={document_id} key={document_id} />;
+
+  return (
+    <>
+      <DocumentNav document_id={document_id} />
+      <EditorPage document_id={document_id} key={document_id} />
+    </>
+  );
 }

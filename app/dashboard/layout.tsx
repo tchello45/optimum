@@ -1,7 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { UserProvider } from "@/contexts/UserProvider";
 import AppSidebar from "@/components/dashboard/sidebar/Sidebar";
-import DashboardNav from "@/components/dashboard/Navbar";
 import { DocumentsProvider } from "@/contexts/DocumentsProvider";
 
 export default function RootLayout({
@@ -15,7 +14,7 @@ export default function RootLayout({
         <SidebarProvider className="flex flex-col md:flex-row w-full flex-1 mx-auto overflow-hidden h-screen">
           <AppSidebar />
           <SidebarInset className="overflow-y-auto ">
-            <DashboardNav />
+            
             {children}
           </SidebarInset>
         </SidebarProvider>

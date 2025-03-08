@@ -18,7 +18,7 @@ export async function login(formData: FormData) {
   console.log(error);
 
   if (error) {
-    redirect("/error");
+    redirect("/auth/error");
   }
 
   revalidatePath("/", "layout");
@@ -44,7 +44,7 @@ export async function googleLogin() {
   if (error) {
     // Error handling: For example, redirect to an error page when an error occurs.
     console.error(error);
-    redirect("/error");
+    redirect("/auth/error");
   }
 
   /**

@@ -10,7 +10,6 @@ import React, {
 } from "react";
 import { Database } from "@/types/supabase";
 import { getDocuments } from "@/utils/supabase/clientFunctions";
-import { createClient } from "@/utils/supabase/client";
 
 interface DocumentsContextType {
   documents: Database["public"]["Tables"]["documents"]["Row"][];
@@ -33,26 +32,8 @@ export const DocumentsProvider = ({ children }: { children: ReactNode }) => {
   const refreshDocuments = async (): Promise<void> => {
     setLoading(true);
     try {
-      const supabase = createClient();
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-      if (!user) {
-        console.error("Error getting user", userError);
-        return;
-      }
-      console.log("refreshing documents");
-      const { data, error } = await supabase
-        .from("documents")
-        .select()
-        .eq("user_id", user?.id);
-      if (!data) {
-        console.error("Error getting documents", error);
-        return;
-      }
-      console.log("got documents", data);
-      setDocuments(data as Database["public"]["Tables"]["documents"]["Row"][]);
+      const documents = await getDocuments();
+      setDocuments(documents as Database["public"]["Tables"]["documents"]["Row"][]);
     } catch (error) {
       console.error("Error fetching documents:", error);
     } finally {

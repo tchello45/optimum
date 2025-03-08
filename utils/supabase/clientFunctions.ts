@@ -38,10 +38,8 @@ async function getDocuments() {
     console.log("got user");
   }
 
-  const { data, error } = await supabase
-    .from("documents")
-    .select()
-    .eq("user_id", user?.id);
+  const { data, error } = await supabase.from("documents").select();
+  /* .eq("user_id", user?.id); Fix for performance */
   if (!data) {
     console.error("Error getting documents", error);
     return;
@@ -82,7 +80,13 @@ async function deleteDocument(document_id: string) {
   }
 }
 
-async function changeDocumentTitle({document_id, title}: {document_id: string, title: string}) {
+async function changeDocumentTitle({
+  document_id,
+  title,
+}: {
+  document_id: string;
+  title: string;
+}) {
   console.log("changing document title");
   const supabase = await createClient();
   console.log(document_id, title);
@@ -99,4 +103,45 @@ async function changeDocumentTitle({document_id, title}: {document_id: string, t
   }
 }
 
-export { createDocument, getDocuments, getDocument, deleteDocument, changeDocumentTitle };
+async function inviteCollaborator({
+  document_id,
+  email,
+}: {
+  document_id: string;
+  email: string;
+}) {
+  console.log("inviting collaborator");
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("get_user_id_by_email", {
+    email_input: email,
+  });
+  if (error) {
+    console.error("Error inviting collaborator", error);
+    return;
+  }
+  if (!data) {
+    console.error("Error inviting collaborator", error);
+    return;
+  } else {
+    const user_id = data;
+    console.log("User ID", user_id);
+    const { error } = await supabase
+      .from("collaborators")
+      .insert([{ document_id, user_id }]);
+    if (error) {
+      console.error("Error inviting collaborator", error);
+      return;
+    } else {
+      console.log("invited collaborator");
+    }
+  }
+}
+
+export {
+  createDocument,
+  getDocuments,
+  getDocument,
+  deleteDocument,
+  changeDocumentTitle,
+  inviteCollaborator,
+};
