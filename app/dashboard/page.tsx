@@ -10,9 +10,8 @@ export default async function DocumentPage() {
           <p className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
             Optimum Documents
           </p>
-          <p className="text-lg">
-            Your documents, your way. Our editor is designed to be simple and
-            powerful.
+          <p className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-600 pb-2">
+            Don&apos;t run, don&apos;t rush - just flow.
           </p>
         </header>
         <section className="w-full max-w-3xl  shadow-md rounded-lg p-6 border border-gray-200">

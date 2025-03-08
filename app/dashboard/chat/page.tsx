@@ -10,9 +10,12 @@ export default async function ChatPage() {
           <p className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
             Optimum Chat
           </p>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-4">
+          <p className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-600">
+            After the twilight, alway a sunrise.
+          </p>
+          <p className="text-5xl md:text-7xl font-extrabold mb-4">
             Integration Coming Soon!
-          </h1>
+          </p>
           <p className="text-lg">
             We are working on bringing you the best chat integration possible.
           </p>

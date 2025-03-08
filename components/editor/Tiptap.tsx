@@ -16,6 +16,7 @@ import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import Typography from '@tiptap/extension-typography'
 
 //TipTap Pro Extensions
 
@@ -69,6 +70,7 @@ export default function Editor({
       types: ["heading", "paragraph"],
     }),
     Underline,
+    Typography,
     Collaboration.configure({
       document: ydoc,
     }),

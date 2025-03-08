@@ -10,9 +10,12 @@ export default async function AIPage() {
           <p className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
             Optimum Advanced AI
           </p>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-4">
+          <p className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-600">
+            To each his own.
+          </p>
+          <p className="text-5xl md:text-7xl font-extrabold mb-4">
             Integration Coming Soon!
-          </h1>
+          </p>
           <p className="text-lg">
             We are working on bringing you the best AI integration possible.
           </p>
