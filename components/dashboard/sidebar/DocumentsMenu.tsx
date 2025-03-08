@@ -43,7 +43,6 @@ export default function DocumentsMenu() {
   const [newDocumentTitle, setNewDocumentTitle] = useState("");
   const router = useRouter();
   const pathname = usePathname();
-  refreshDocuments();
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Documents</SidebarGroupLabel>
@@ -118,12 +117,14 @@ export default function DocumentsMenu() {
               <DialogClose asChild>
                 <Button
                   onClick={() => {
+                    console.log("saving new document title");
                     changeDocumentTitle({
                       document_id: currentDoc?.document_id || "",
                       title:
                         newDocumentTitle || currentDoc?.title || "Untitled",
+                    }).then(() => {
+                      refreshDocuments();
                     });
-                    refreshDocuments();
                     setEditDialogOpen(false);
                   }}
                   className="cursor-pointer"
@@ -146,8 +147,10 @@ export default function DocumentsMenu() {
               <Button
                 onClick={() => {
                   if (!currentDoc) return;
-                  deleteDocument(currentDoc?.document_id);
-                  refreshDocuments();
+                  deleteDocument(currentDoc?.document_id).then(() => {
+                    refreshDocuments();
+                    router.push("/dashboard");
+                  });
                   setDeleteDialogOpen(false);
                 }}
                 className="cursor-pointer flex-1"
