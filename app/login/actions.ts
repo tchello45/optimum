@@ -34,6 +34,10 @@ export async function googleLogin() {
       redirectTo:
         validateUrl(process.env.NEXT_PUBLIC_REDIRECT_URL) ||
         "http://localhost:3000/auth/callback",
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
     },
   });
 

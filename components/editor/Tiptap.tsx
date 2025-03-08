@@ -1,6 +1,7 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
+import { useEffect } from "react";
 import { useUser } from "@/contexts/UserProvider";
 import * as Y from "yjs";
 import CustomBubbleMenu from "./BubbleMenu";
@@ -56,11 +57,15 @@ export default function Editor({
   document_id: string;
 }) {
   const ydoc = new Y.Doc();
-  new IndexeddbPersistence(document_id, ydoc);
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.indexedDB) {
+      new IndexeddbPersistence(document_id, ydoc);
+    }
+  }, [document_id, ydoc]);
   const provider = new TiptapCollabProvider({
     name: document_id,
-    appId: process.env.TIPTAP_APP_ID?.toString() || "error",
-    token: process.env.TIPTAP_TOKEN?.toString,
+    appId: process.env.NEXT_PUBLIC_TIPTAP_APP_ID?.toString() || "error",
+    token: process.env.NEXT_PUBLIC_TIPTAP_TOKEN?.toString, 
     document: ydoc,
     onSynced() {
       console.log("Synced");
@@ -103,8 +108,8 @@ export default function Editor({
       },
     },
     immediatelyRender: false,
-    onCreate({ editor }) {
-      editor.commands.focus(0);
+    onCreate: ({ editor }) => {
+      editor.commands.focus();
     },
   });
 
