@@ -5,6 +5,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import { useUser } from "@/contexts/UserProvider";
 import * as Y from "yjs";
 import CustomBubbleMenu from "./BubbleMenu";
+import CustomFloatingMenu from "./FloatingMenu";
 import { TiptapCollabProvider } from "@hocuspocus/provider";
 import "./styles.scss";
 
@@ -17,6 +18,7 @@ import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Typography from '@tiptap/extension-typography'
+import { SmilieReplacer } from './SmilieReplacer';
 
 //TipTap Pro Extensions
 
@@ -71,6 +73,7 @@ export default function Editor({
     }),
     Underline,
     Typography,
+    SmilieReplacer,
     Collaboration.configure({
       document: ydoc,
     }),
@@ -110,6 +113,7 @@ export default function Editor({
       <EditorContent editor={editor} />
       <div className="w-full">
         <CustomBubbleMenu editor={editor} />
+        <CustomFloatingMenu editor={editor} />
       </div>
     </div>
   );

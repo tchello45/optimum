@@ -13,10 +13,7 @@ export default function RootLayout({
       <DocumentsProvider>
         <SidebarProvider className="flex flex-col md:flex-row w-full flex-1 mx-auto overflow-hidden h-screen">
           <AppSidebar />
-          <SidebarInset className="overflow-y-auto ">
-            
-            {children}
-          </SidebarInset>
+          <SidebarInset className="overflow-y-auto ">{children}</SidebarInset>
         </SidebarProvider>
       </DocumentsProvider>
     </UserProvider>

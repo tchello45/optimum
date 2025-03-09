@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { BubbleMenu } from "@tiptap/react";
+import { FloatingMenu } from "@tiptap/react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Toggle } from "@/components/ui/toggle";
 import { Icon } from "@iconify/react";
 import { Editor } from "@tiptap/core";
 
-export default function CustomBubbleMenu({ editor }: { editor: Editor }) {
+export default function CustomFloatingMenu({ editor }: { editor: Editor }) {
   const inlineFormatting = [
     {
       icon: "mdi:format-bold",
@@ -68,7 +68,7 @@ export default function CustomBubbleMenu({ editor }: { editor: Editor }) {
   const activeAlignment = alignmentOptions.find((item) => item.isActive);
 
   return (
-    <BubbleMenu
+    <FloatingMenu
       editor={editor}
       className="bg-background flex flex-row items-center gap-2 w-fit min-w-[min-content] max-w-full"
       tippyOptions={{
@@ -104,7 +104,6 @@ export default function CustomBubbleMenu({ editor }: { editor: Editor }) {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-
       <ToggleGroup
         type="single"
         value={activeAlignment?.icon}
@@ -121,7 +120,6 @@ export default function CustomBubbleMenu({ editor }: { editor: Editor }) {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-
       <div className="border rounded-lg flex bg-inherit overflow-clip">
         {specialActions.map((item, index) => (
           <Toggle
@@ -134,6 +132,6 @@ export default function CustomBubbleMenu({ editor }: { editor: Editor }) {
           </Toggle>
         ))}
       </div>
-    </BubbleMenu>
+    </FloatingMenu>
   );
 }
